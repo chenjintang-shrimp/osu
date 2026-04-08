@@ -800,7 +800,12 @@ namespace osu.Game.Database
         {
             // This is currently the only usage of temporary files at the osu! side.
             // If we use the temporary folder in more situations in the future, this should be moved to a higher level (helper method or OsuGameBase).
-            string tempPathLocation = Path.Combine(Path.GetTempPath(), @"lazer");
+            //
+            // Important: on some Android devices, app data can live on a FUSE-backed path where FIFO creation is blocked by SELinux.
+            // Realm creates FIFO lock files for interprocess communication. Ensure these are routed to an app-private location.
+            string localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string tempPathLocation = Path.Combine(string.IsNullOrEmpty(localAppDataPath) ? Path.GetTempPath() : localAppDataPath, @"lazer");
+
             if (!Directory.Exists(tempPathLocation))
                 Directory.CreateDirectory(tempPathLocation);
 
