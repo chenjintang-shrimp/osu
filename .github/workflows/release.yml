@@ -596,7 +596,7 @@ jobs:
             -p:AssemblyVersion=${{ needs.version.outputs.assemblyVersion }} \
             -p:SentryDsn="$SENTRY_DSN" \
             -p:InformationalVersion=${{ needs.version.outputs.version }} \
-            osu.iOS.csproj
+            osu.iOS/osu.iOS.csproj
 
       - name: Collect IPA
         shell: bash
