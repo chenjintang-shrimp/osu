@@ -68,15 +68,15 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      # - name: Validate Sentry DSN
-      #   shell: bash
-      #   env:
-      #     SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-      #   run: |
-      #     if [[ -z "$SENTRY_DSN" ]]; then
-      #       echo "ERROR: SENTRY_DSN secret is required for release builds."
-      #       exit 1
-      #     fi
+      - name: Validate Sentry DSN
+        shell: bash
+        env:
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+        run: |
+          if [[ -z "$SENTRY_DSN" ]]; then
+            echo "ERROR: SENTRY_DSN secret is required for release builds."
+            exit 1
+          fi
 
       - name: Pack
         env:
@@ -556,15 +556,15 @@ jobs:
             macOS-ios-nuget-
             macOS-nuget-
 
-      - name: Validate Sentry DSN
-        shell: bash
-        env:
-          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-        run: |
-          if [[ -z "$SENTRY_DSN" ]]; then
-            echo "ERROR: SENTRY_DSN secret is required for release builds."
-            exit 1
-          fi
+      # - name: Validate Sentry DSN
+      #   shell: bash
+      #   env:
+      #     SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+      #   run: |
+      #     if [[ -z "$SENTRY_DSN" ]]; then
+      #       echo "ERROR: SENTRY_DSN secret is required for release builds."
+      #       exit 1
+      #     fi
 
       - name: Clean previous build artifacts
         shell: bash
