@@ -55,6 +55,7 @@ jobs:
     name: Pack & Publish NuGet
     needs: version
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     permissions:
       contents: read
       packages: write
@@ -620,6 +621,7 @@ jobs:
     name: Create GitHub Release
     needs: [version, nuget, build, build-ios]
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     permissions:
       contents: write
     steps:
